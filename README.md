@@ -47,11 +47,11 @@ npm run start:dev
 You will have:
 
 - MySQL database running at `localhost:3306` _(dockerized)_
-- NestJs REST API running at `http://localhost:3000`
+- NestJs REST API running at `http://localhost:3000` (all routes are prefixed by `/api`)
 - an instance of PhpMyAdmin running at `http://localhost:8080` to manage your database visually (login with the credentials set in the `.env` file)
 - Prisma Studio instance running at `http://localhost:5555` if you do `npx prisma studio`
-- OpenAPI (Swagger) docs running at `http://localhost:3000/api` (only in development mode)
-- All types from the Rest API accessible via `https://localhost:3000/api-json` (only in development mode) useful for frontend integration
+- OpenAPI (Swagger) docs running at `http://localhost:3000/api/docs` (only in development mode)
+- All types from the Rest API accessible via `http://localhost:3000/api/docs-json` (only in development mode) useful for frontend integration
 
 ## Prisma
 
