@@ -1,81 +1,238 @@
-# NestJS x Prisma x Better-Auth
+# NestJS x Prisma x MySQL x Better-Auth
 
-A simple production-ready starter template for building REST APIs with [NestJS](https://nestjs.com/), [Prisma ORM](https://www.prisma.io/), [MySQL](https://www.mysql.com/) and [Better-Auth](https://better-auth.com/) authentication.
+A production-ready starter template for building modern REST APIs with authentication.
 
-## 📚 Table of Contents
+## 🚀 Features
 
-- [How to use this template](#how-to-use-this-template)
-- [Prisma flow](#prisma-flow)
+- **[NestJS](https://nestjs.com/)** - Progressive Node.js framework for scalable server-side applications
+- **[Prisma ORM](https://www.prisma.io/)** - Type-safe database client with auto-generated types
+- **[MySQL](https://www.mysql.com/)** - Reliable relational database
+- **[Better-Auth](https://better-auth.com/)** - Modern authentication library with built-in security best practices
+- **[Swagger/OpenAPI](https://swagger.io/)** - Automatic API documentation
+- **Docker** - Containerized MySQL database with phpMyAdmin
+- **TypeScript** - Full type safety across the stack
 
-## How to use this template
+## 📋 Prerequisites
 
-1. Fork the repository
-2. Install dependencies
+- Node.js (v18 or higher)
+- Docker and Docker Compose
+- npm
+
+## 🛠️ Getting Started
+
+### 1. Fork and Install
 
 ```bash
 npm install
 ```
 
-3. Create a `.env` file by renaming the provided example file:
+### 2. Environment Configuration
+
+Create your environment file from the example:
 
 ```bash
-mv .env.example .env
+cp .env.example .env
 ```
 
-4. Modify the `.env` file to set your database credentials and other settings by changing every `<change me>` placeholders with your own values.
+Update the `.env` file with your credentials. Replace all `<change me>` placeholders:
 
 ```bash
-# Example:
-DB_NAME=my_database_name
-DB_USER=john_doe
-DB_ROOT_PASSWORD=my_secure_root_password
-# ...
+# Database Configuration
+DB_NAME=your_database_name
+DB_USER=your_username
+#...
 ```
 
-5. Apply database migrations:
+### 3. Database Setup
+
+Apply database migrations:
 
 ```bash
 npx prisma migrate deploy
 ```
 
-6. Run the project locally:
+### 4. Run the Application
+
+Start the development server:
 
 ```bash
-npm run start:dev
+npm run dev
 ```
 
-You will have:
+This command will:
 
-- MySQL database running at `localhost:3306` _(dockerized)_
-- NestJs REST API running at `http://localhost:3000` (all routes are prefixed by `/api`)
-- an instance of PhpMyAdmin running at `http://localhost:8080` to manage your database visually (login with the credentials set in the `.env` file)
-- Prisma Studio instance running at `http://localhost:5555` if you do `npx prisma studio`
-- OpenAPI (Swagger) docs running at `http://localhost:3000/api/docs` (only in development mode)
-- All types from the Rest API accessible via `http://localhost:3000/api/docs-json` (only in development mode) useful for frontend integration
+- Start Docker containers (MySQL + phpMyAdmin)
+- Generate Prisma client
+- Start NestJS in watch mode
 
-## Prisma
+## 🌐 Available Services
 
-1. Modify your Prisma schema in `prisma/schema.prisma`
-2. Run the following command to **generate** and **apply** a new migration:
+Once running, you'll have access to:
+
+| Service           | URL                                   | Description                                          |
+| ----------------- | ------------------------------------- | ---------------------------------------------------- |
+| **REST API**      | `http://localhost:3000/api`           | Main API endpoint (all routes prefixed with `/api`)  |
+| **Swagger Docs**  | `http://localhost:3000/api/docs`      | Interactive API documentation (dev only)             |
+| **OpenAPI JSON**  | `http://localhost:3000/api/docs-json` | OpenAPI specification for code generation (dev only) |
+| **phpMyAdmin**    | `http://localhost:8080`               | Database management interface                        |
+| **Prisma Studio** | `http://localhost:5555`               | Visual database editor (run `npx prisma studio`)     |
+| **MySQL**         | `localhost:3306`                      | Database connection                                  |
+
+## 🔐 Authentication
+
+Better-Auth is pre-configured with email/password authentication. All authentication endpoints are available at `/api/auth/*`
+
+For advanced configuration and additional features (OAuth, 2FA, etc.), refer to the [Better-Auth documentation](https://better-auth.com/docs).
+
+## 🗄️ Database Management
+
+### Modify the Schema
+
+Edit your data models in `prisma/schema.prisma`
+
+### Create a New Migration
+
+Generate and apply a new migration:
 
 ```bash
 npx prisma migrate dev --name your_migration_name
 ```
 
-We run `prisma generate` automatically after every migration, but if you need to run it manually, use: _(eg: on npm run dev)_
+This automatically runs `prisma generate` after the migration.
 
-```bash
-npx prisma generate
-```
+### Apply Existing Migrations
 
-Sometimes, you need to apply migrations to your database without creating them _(eg: new migrations from PRs)_:
+Deploy migrations without creating new ones (useful for pulling changes):
 
 ```bash
 npx prisma migrate deploy
 ```
 
-## Better-Auth
+### Visual Database Management
 
-For more information on how to use Better-Auth with NestJS, refer to the [Better-Auth documentation](https://better-auth.com/docs).
+**Option 1:** phpMyAdmin
 
-Basically, it's use the endpoints `/api/auth/*`
+- Navigate to `http://localhost:8080`
+- Login with credentials from your `.env` file
+
+**Option 1:** Prisma Studio
+
+```bash
+npx prisma studio
+```
+
+## 📜 Available Scripts
+
+```bash
+# Development
+npm run dev              # Start all the stack localy
+
+# Build
+npm run build            # Compile TypeScript
+
+# Production
+npm start                # Run compiled application
+
+# Code Quality
+npm run format           # Format code with Prettier
+npm run lint             # Lint and fix with ESLint
+
+# Testing
+npm test                 # Run unit tests
+npm run test:watch       # Run tests in watch mode
+npm run test:cov         # Generate coverage report
+npm run test:e2e         # Run end-to-end tests
+```
+
+## 📁 Project Structure
+
+```
+.
+├── prisma/
+│   ├── schema.prisma          # Database schema
+│   └── migrations/            # Migration history
+├── src/
+│   ├── app/
+│   │   └── app.module.ts      # Root application module
+│   └── main.ts                # Application entry point
+├── lib/
+│   └── auth.ts                # Better-Auth configuration
+├── generated/
+│   └── prisma/                # Auto-generated Prisma client
+├── docker-compose.yml         # Docker services configuration
+└── .env                       # Environment variables
+```
+
+## 🔧 Configuration
+
+### API Prefix
+
+All routes are automatically prefixed with `/api`. This is configured in `src/main.ts`:
+
+```typescript
+app.setGlobalPrefix('api');
+```
+
+### CORS
+
+CORS is enabled for `http://localhost:3000` by default. Modify in `src/main.ts` as needed:
+
+```typescript
+app.enableCors({
+  origin: ['http://localhost:3000'],
+  credentials: true,
+});
+```
+
+### Swagger Documentation
+
+Swagger is only available in non-production environments. Configuration in `src/main.ts`:
+
+```typescript
+if (process.env.NODE_ENV !== 'production') {
+  // Swagger setup
+}
+```
+
+## 🐳 Docker Services for development
+
+The `docker-compose.yml` includes:
+
+- **MySQL 8.0** - Main database
+- **phpMyAdmin** - Web-based database management
+
+Start services manually:
+
+```bash
+docker-compose up -d
+```
+
+Stop services:
+
+```bash
+docker-compose down
+```
+
+## 🚢 Production Deployment
+
+1. Set `NODE_ENV=production` in your environment (package.json script or Dockerfile)
+2. Build the application: `npm run build`
+3. Run migrations: `npx prisma migrate deploy`
+4. Start the server: `npm start`
+
+**Note:** Swagger documentation is automatically disabled in production.
+
+## 📚 Learn More
+
+- [NestJS Documentation](https://docs.nestjs.com/)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [Better-Auth Documentation](https://better-auth.com/docs)
+- [MySQL Documentation](https://dev.mysql.com/doc/)
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+---
+
+**Happy Coding! 🎉**
