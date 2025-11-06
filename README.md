@@ -6,30 +6,31 @@ A simple production-ready starter template for building REST APIs with [NestJS](
 
 ## How to use this template
 
-1. Clone the repository
-
-```bash
-git clone <repository-url>
-```
-
+1. Fork the repository
 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-3. Configure environment variables
+3. Create a `.env` file by renaming the provided example file:
 
 ```bash
-cp .env.example .env
+mv .env.example .env
 ```
 
-4. Run the application
+4. Modify the `.env` file to set your database credentials and other settings by changing every `<change me>` placeholders with your own values.
 
 ```bash
-npm run start
+# Example:
+DB_NAME=my_database_name
+DB_USER=john_doe
+DB_ROOT_PASSWORD=my_secure_root_password
+# ...
 ```
 
-```
-npm run start
+6. Check if Prisma is well configured by running the following command
+
+```bash
+npx prisma
 ```
