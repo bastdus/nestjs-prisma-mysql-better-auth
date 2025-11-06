@@ -4,6 +4,9 @@ A simple production-ready starter template for building REST APIs with [NestJS](
 
 ## 📚 Table of Contents
 
+- [How to use this template](#how-to-use-this-template)
+- [Prisma flow](#prisma-flow)
+
 ## How to use this template
 
 1. Fork the repository
@@ -29,8 +32,50 @@ DB_ROOT_PASSWORD=my_secure_root_password
 # ...
 ```
 
-6. Check if Prisma is well configured by running the following command
+5. Apply database migrations:
 
 ```bash
-npx prisma
+npx prisma migrate deploy
 ```
+
+6. Run the project locally:
+
+```bash
+npm run start:dev
+```
+
+You will have:
+
+- MySQL database running at `localhost:3306` _(dockerized)_
+- NestJs REST API running at `http://localhost:3000`
+- an instance of PhpMyAdmin running at `http://localhost:8080` to manage your database visually (login with the credentials set in the `.env` file)
+- Prisma Studio instance running at `http://localhost:5555` if you do `npx prisma studio`
+- OpenAPI (Swagger) docs running at `http://localhost:3000/api` (only in development mode)
+- All types from the Rest API accessible via `https://localhost:3000/api-json` (only in development mode) useful for frontend integration
+
+## Prisma
+
+1. Modify your Prisma schema in `prisma/schema.prisma`
+2. Run the following command to **generate** and **apply** a new migration:
+
+```bash
+npx prisma migrate dev --name your_migration_name
+```
+
+We run `prisma generate` automatically after every migration, but if you need to run it manually, use: _(eg: on npm run dev)_
+
+```bash
+npx prisma generate
+```
+
+Sometimes, you need to apply migrations to your database without creating them _(eg: new migrations from PRs)_:
+
+```bash
+npx prisma migrate deploy
+```
+
+## Better-Auth
+
+For more information on how to use Better-Auth with NestJS, refer to the [Better-Auth documentation](https://better-auth.com/docs).
+
+Basically, it's use the endpoints `/api/auth/*`
